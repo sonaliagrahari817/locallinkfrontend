@@ -1,0 +1,262 @@
+.offers-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-soft);
+}
+
+.offers-main-content {
+  padding-top: 90px;
+  padding-bottom: 60px;
+}
+
+/* Promo Banner */
+.offers-promo-banner {
+  margin-bottom: 40px;
+}
+
+.promo-banner-container {
+  background: linear-gradient(
+    135deg,
+    var(--primary-dark) 0%,
+    var(--primary) 100%
+  );
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.promo-banner-text {
+  max-width: 600px;
+}
+
+.promo-banner-text p {
+  margin-bottom: 25px;
+}
+
+.promo-tag {
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--secondary);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.promo-banner-text h1 {
+  font-size: 36px;
+  font-weight: 800;
+  margin: 12px 0 8px 0;
+  font-family: "Outfit", sans-serif;
+  line-height: 1.2;
+}
+
+.promo-banner-text p {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+/* Listings section */
+.offers-listings-section {
+  margin-bottom: 48px;
+}
+
+.offers-listings-section h2,
+.bundled-packages-section h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-main);
+  font-family: "Outfit", sans-serif;
+  margin-bottom: 4px;
+}
+
+.section-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.offers-page-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Bundled Packages */
+.bundled-packages-section {
+  margin-bottom: 40px;
+}
+
+.bundles-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.bundle-package-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.bundle-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.bundle-package-card h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-main);
+  font-family: "Outfit", sans-serif;
+  margin-bottom: 8px;
+  padding-right: 80px;
+}
+
+.bundle-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.bundle-includes {
+  margin-bottom: 24px;
+}
+
+.bundle-includes span {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-main);
+}
+
+.bundle-includes ul {
+  margin-top: 6px;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bundle-includes li {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.bundle-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  padding-top: 16px;
+  margin-top: auto;
+}
+
+.bundle-price-box {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.bundle-price {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--primary-dark);
+}
+
+.bundle-orig-price {
+  font-size: 14px;
+  text-decoration: line-through;
+  color: var(--text-light);
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+  .offers-page-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .offers-main-content {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+  .bundles-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .promo-banner-container {
+    padding: 28px 20px;
+    text-align: center;
+    border-radius: 18px;
+  }
+  .promo-banner-text {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .promo-banner-text h1 {
+    font-size: 24px;
+  }
+  .promo-banner-text p {
+    font-size: 13px;
+  }
+  .offers-listings-section,
+  .bundled-packages-section {
+    text-align: center;
+  }
+  .offers-listings-section h2,
+  .bundled-packages-section h2 {
+    font-size: 19px;
+  }
+  .section-desc {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .offers-page-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .bundle-package-card {
+    padding: 20px 16px;
+    text-align: center;
+    align-items: center;
+  }
+  .bundle-package-card h3 {
+    padding-right: 0;
+    margin-top: 24px;
+    font-size: 16px;
+  }
+  .bundle-includes {
+    text-align: left;
+    width: 100%;
+  }
+  .bundle-footer {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+}

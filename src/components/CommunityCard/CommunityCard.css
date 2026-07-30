@@ -1,0 +1,150 @@
+.community-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.post-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: 2px solid var(--primary-light);
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.post-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-username {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.post-time {
+  font-size: 11px;
+  color: var(--text-light);
+}
+
+.post-category-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+/* Category Badge Colors */
+.cat-looking {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.cat-sale {
+  background-color: #e0f2fe;
+  color: #0284c7;
+}
+
+.cat-lost {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+.cat-default {
+  background-color: var(--bg-soft);
+  color: var(--text-muted);
+}
+
+.post-body {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+}
+
+.post-description {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.action-btn:hover {
+  color: var(--primary);
+}
+
+.action-icon {
+  font-size: 16px;
+}
+
+.action-btn.liked {
+  color: var(--danger);
+}
+
+.liked-icon {
+  color: var(--danger);
+  animation: heartPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.action-message-btn {
+  margin-left: auto;
+}
+
+.action-message-btn:hover {
+  color: var(--secondary);
+}
+
+@keyframes heartPop {
+  0% { transform: scale(0.5); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 480px) {
+  .post-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .post-category-badge {
+    align-self: flex-start;
+  }
+  .post-actions {
+    gap: 16px;
+  }
+}

@@ -1,0 +1,581 @@
+.india-map-wrapper {
+  padding: 2.5rem;
+  border-radius: 24px;
+  background: var(--surface-glass, rgba(15, 23, 42, 0.75));
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  margin: 30px auto 20px auto;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.india-map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.india-map-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  background: rgba(255, 153, 51, 0.15);
+  color: #ff9933;
+  border: 1px solid rgba(255, 153, 51, 0.3);
+  border-radius: 9999px;
+  font-size: 0.825rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.india-map-badge.gps-active {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+.india-map-title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 0.5rem;
+}
+
+.india-map-sub {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.map-view-toggle-bar {
+  display: flex;
+  background: rgba(15, 23, 42, 0.8);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 4px;
+}
+
+.map-toggle-btn {
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.map-toggle-btn.active {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+}
+
+.india-map-content-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  width: 100%;
+}
+
+/* Map Canvas Container */
+.india-map-canvas-container {
+  position: relative;
+  background: radial-gradient(
+    circle at center,
+    rgba(30, 41, 59, 0.9),
+    rgba(15, 23, 42, 0.95)
+  );
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.5rem;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Radar Mode Canvas */
+.radar-map-canvas {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.radar-grid-rings {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  box-shadow:
+    0 0 0 40px rgba(99, 102, 241, 0.08),
+    0 0 0 80px rgba(99, 102, 241, 0.04);
+}
+
+.radar-sweep-line {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(99, 102, 241, 0.35) 0deg,
+    transparent 60deg,
+    transparent 360deg
+  );
+  animation: radarSweep 4s linear infinite;
+}
+
+@keyframes radarSweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.user-center-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-ping {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ff9933;
+  box-shadow: 0 0 15px #ff9933;
+  animation: mapPulse 1.8s infinite;
+}
+
+.user-core {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: rgba(230, 81, 0, 0.9);
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-top: 4px;
+}
+
+.radar-service-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.radar-pin-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.5);
+  transition: all 0.25s ease;
+}
+
+.radar-service-pin.selected .radar-pin-dot {
+  background: linear-gradient(135deg, #ff9933, #e65100);
+  transform: scale(1.3);
+  box-shadow: 0 0 20px rgba(255, 153, 51, 0.8);
+}
+
+.radar-pin-label {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #f8fafc;
+  background: rgba(15, 23, 42, 0.88);
+  padding: 2px 7px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+
+/* India Outline SVG View */
+.india-map-svg-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 350px;
+  margin: 0 auto;
+}
+
+.india-outline-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 10px 25px rgba(99, 102, 241, 0.25));
+}
+
+.india-map-path {
+  fill: rgba(30, 58, 138, 0.35);
+  stroke: #6366f1;
+  stroke-width: 1.2;
+  stroke-dasharray: 4 2;
+  transition: all 0.3s ease;
+}
+
+.map-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-size: 20px 20px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  pointer-events: none;
+}
+
+.india-city-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pin-dot-inner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.5);
+}
+
+.pin-pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.3);
+  animation: mapPulse 2s infinite;
+  pointer-events: none;
+}
+
+@keyframes mapPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0;
+  }
+}
+
+.india-city-pin.selected .pin-dot-inner {
+  background: linear-gradient(135deg, #ff9933, #e65100);
+  transform: scale(1.25);
+  box-shadow: 0 0 20px rgba(255, 153, 51, 0.8);
+}
+
+.pin-label {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #f8fafc;
+  background: rgba(15, 23, 42, 0.85);
+  padding: 2px 7px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+
+/* City Info Card */
+.city-info-card {
+  padding: 1.75rem;
+  border-radius: 20px;
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-sizing: border-box;
+}
+
+.city-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.city-name {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.city-state {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.city-tag-pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.city-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.city-stat-box {
+  background: rgba(15, 23, 42, 0.6);
+  padding: 0.85rem 0.6rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.stat-icon {
+  font-size: 1.2rem;
+  color: #818cf8;
+}
+.stat-icon.star {
+  color: #fbbf24;
+}
+.stat-icon.check {
+  color: #34d399;
+}
+
+.stat-num {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.stat-lbl {
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+.city-desc {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.btn-city-explore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, #ff9933, #e65100);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(255, 153, 51, 0.3);
+}
+
+.btn-city-explore:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 153, 51, 0.45);
+}
+
+/* Responsiveness & Centering */
+@media (max-width: 900px) {
+  .india-map-content-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .india-map-wrapper {
+    padding: 1.5rem 1rem;
+    border-radius: 18px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .india-map-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .india-map-badge {
+    margin: 0 auto 0.5rem auto;
+    font-size: 0.75rem;
+  }
+
+  .india-map-title {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .india-map-sub {
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .map-view-toggle-bar {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 3px;
+  }
+
+  .map-toggle-btn {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.78rem;
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .india-map-canvas-container {
+    padding: 0.75rem;
+    min-height: 310px;
+    border-radius: 16px;
+  }
+
+  .radar-map-canvas {
+    height: 290px;
+  }
+
+  .radar-grid-rings,
+  .radar-sweep-line {
+    width: 230px;
+    height: 230px;
+  }
+
+  .city-info-card {
+    padding: 1.25rem 1rem;
+    border-radius: 16px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .city-info-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .city-name {
+    font-size: 1.25rem;
+  }
+
+  .city-stats-grid {
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .city-stat-box {
+    padding: 0.6rem 0.4rem;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.3rem;
+  }
+
+  .stat-icon {
+    font-size: 1rem;
+  }
+
+  .stat-num {
+    font-size: 0.85rem;
+  }
+
+  .stat-lbl {
+    font-size: 0.65rem;
+  }
+
+  .city-desc {
+    font-size: 0.82rem;
+    text-align: center;
+  }
+
+  .btn-city-explore {
+    padding: 0.75rem;
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .india-map-wrapper {
+    padding: 1.25rem 0.75rem;
+  }
+  .radar-grid-rings,
+  .radar-sweep-line {
+    width: 190px;
+    height: 190px;
+  }
+  .radar-map-canvas {
+    height: 260px;
+  }
+  .radar-pin-label {
+    font-size: 0.65rem;
+    padding: 1px 5px;
+  }
+  .map-toggle-btn {
+    font-size: 0.72rem;
+    padding: 0.4rem 0.5rem;
+  }
+}

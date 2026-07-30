@@ -1,0 +1,61 @@
+.dashboard-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.db-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.db-card-title {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.db-card-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.db-card-change {
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 4px;
+  display: inline-block;
+}
+
+.db-card-change.positive {
+  color: var(--success);
+}
+
+.db-card-change.negative {
+  color: var(--danger);
+}
+
+.db-card-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.db-card-icon {
+  font-size: 24px;
+}

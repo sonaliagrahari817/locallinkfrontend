@@ -1,0 +1,343 @@
+.nearby-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-soft);
+}
+
+.nearby-main-content {
+  padding-top: 90px;
+  padding-bottom: 60px;
+}
+
+.nearby-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-main);
+  font-family: "Outfit", sans-serif;
+  margin-bottom: 4px;
+}
+
+.nearby-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+/* Map Canvas styling */
+.map-viewport-container {
+  margin-bottom: 32px;
+}
+
+.mock-map-canvas {
+  position: relative;
+  height: 380px;
+  width: 100%;
+  background-color: #f1f5f9;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Grid pattern to simulate map roads */
+.map-grid-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+}
+
+/* Radar pulse rings */
+.map-radar-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  border: 1px dashed rgba(99, 102, 241, 0.15);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: radarPulse 8s infinite linear;
+}
+
+.map-radar-circle-outer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 500px;
+  border: 1px dashed rgba(99, 102, 241, 0.08);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: radarPulse 12s infinite linear reverse;
+}
+
+/* User Location Marker */
+.user-location-pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.pin-pulse {
+  width: 40px;
+  height: 40px;
+  background: rgba(99, 102, 241, 0.2);
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  animation: pulsePin 2s infinite ease-out;
+}
+
+.pin-marker-core {
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
+}
+
+/* Worker Pinned Markers */
+.map-worker-pin {
+  position: absolute;
+  z-index: 5;
+  cursor: pointer;
+}
+
+.worker-pin-dot {
+  width: 14px;
+  height: 14px;
+  background: var(--secondary);
+  border: 2.5px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast);
+}
+
+.worker-pin-card {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: var(--radius-md);
+  width: 140px;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+  box-shadow: var(--shadow-md);
+}
+
+.map-worker-pin:hover .worker-pin-card {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.map-worker-pin:hover .worker-pin-dot {
+  transform: scale(1.2);
+}
+
+.pin-card-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.pin-card-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.pin-meta-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80px;
+}
+
+.pin-meta-rating {
+  font-size: 9px;
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+/* Chips Scroller */
+.chips-scroller {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 4px 0 16px 0;
+  margin-bottom: 24px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.chips-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: var(--transition-fast);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.filter-chip:hover {
+  background: var(--bg-soft);
+  color: var(--primary);
+  border-color: var(--primary-light);
+}
+
+.filter-chip.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.15);
+}
+
+.chip-icon {
+  font-size: 15px;
+}
+
+.listings-header {
+  margin-bottom: 16px;
+}
+
+.listings-header h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-main);
+  font-family: "Outfit", sans-serif;
+}
+
+.workers-list-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.empty-results-card {
+  padding: 48px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+}
+
+.btn-load-more {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--primary);
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  transition: var(--transition-fast);
+  cursor: pointer;
+}
+
+.btn-load-more:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+}
+
+/* Animations */
+@keyframes radarPulse {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes pulsePin {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .workers-list-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .nearby-main-content {
+    padding-top: 70px;
+    padding-bottom: 40px;
+  }
+  .nearby-title {
+    text-align: center;
+    font-size: 20px;
+  }
+  .nearby-subtitle {
+    text-align: center;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  .listings-header h3 {
+    text-align: center;
+    font-size: 16px;
+  }
+  .workers-list-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .mock-map-canvas {
+    height: 260px;
+    border-radius: 16px;
+  }
+  .filter-chip {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .load-more-container button {
+    width: 100%;
+    max-width: 280px;
+  }
+}
